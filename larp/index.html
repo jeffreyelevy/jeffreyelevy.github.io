@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset=utf-8 />
+    <title>LARP!</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+
+    <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="larp_list.js"></script>
+<!--    <script> console.log(larp); </script>-->
+
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+    <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: whitesmoke;
+            font-family: Lato, sans-serif;
+            color: #0D0000;
+        }
+        
+        header {
+            padding: 6px 10%;
+        }
+        
+        h1 {
+            display: inline-block;
+            margin-right: 20px;
+            color: #001323;
+        }
+        
+        h2 {
+            display: inline-block;
+            color: #001323;
+        }
+        
+        #map {
+            width: 80%;
+            height: 540px;
+            margin: 10px auto;
+        }
+        
+        footer {
+            padding: 6px 10%;
+            width: 80%;
+        }
+        
+        p {
+            font-size: 1em;
+            color: #001323;
+        }
+        /* Additional style rules go here! */
+        
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Live Action Role Play Gaming</h1>
+        <h2>Fantasy is Real</h2>
+    </header>
+
+    <div id='map'></div>
+
+    <footer>
+        <p>Map authored by Grant List</p>
+        <p>Created to provide easy discovery of Larps around you.</p>
+        <p>Live Action Role Play (Larp) is a game in which real people play fantatstical people in a world of their own making. From knights and swords, to aliens and laser beams, larp allows players to explore their imagination unlike any other form of entertainment. These games are organized by local groups of individuals wishing to play their own game, and has resulted in some division of players amongst larps that are too close to others. This map was made to allow you an easy view of the different larps located around your location, in about an hour drive or 50 miles radius.
+        </p>
+        <p>The list of larps available was gained through Larping.org, and shows only those registered on the site. While there are many larps that do not appear on this map, it does hold almost 400 different larps from around the world. If you cannot find one near you, go out and make one yourself.
+    </footer>
+    <script>
+       var map = L.map("map", {
+            center: [39, -84.6],
+            zoom: 4,
+            minZoom: 2,
+            maxZoom: 20,
+           
+        });
+        map.doubleClickZoom.disable();
+        var Esri_WorldImagery = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+            attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+        });
+        map.addLayer(Esri_WorldImagery);
+
+
+        var data = larp.markers;
+        console.log(data);
+        var parsedData = eval(larp.markers);
+        
+//        console.log(parsedData[0]);
+//        console.log(parsedData[1][12]);
+        
+        var larp_pts = [];
+//        var latlongs= [];
+        for (var i=0; i<parsedData.length; i++){
+//            console.log(parsedData[i][i]);
+            var site = {
+                name: parsedData[i][0],
+                latlong: L.latLng(parsedData[i][1], parsedData[i][2]),
+                theme: parsedData[i][12],
+                larpURL: parsedData[i][3],
+                larpTxt: parsedData[i][5]
+            };
+            if (site.larpTxt.indexOf('boffer') >=0){
+                site.type = 'boffer'
+                }
+            else site.type = 'pen and paper';
+//            console.log(site.theme);
+            larp_pts.push(site);
+        };
+//            
+//            console.log(larp_pts[5].latlong);
+        
+        var larpCircles = L.layerGroup();
+        
+        for (var i=0; i<larp_pts.length; i++){
+            var siteCircle = L.circle(larp_pts[i].latlong, 80467.2);
+            siteCircle.bindPopup(larp_pts[i].name + "<br>"+ larp_pts[i].theme +"<br>"+ larp_pts[i].type);
+            siteCircle.addTo(larpCircles);
+        };
+        
+//        console.log(larp_pts[5].theme);
+        larpCircles.addTo(map);
+
+//
+//        var circleLayer = L.geoJson(data, {
+//            pointToLayer: function (feature, latlongs) {
+//                return L.circleMarker(latlongs);
+//            },
+//            style: function (feature) {
+//                return {
+//                    color: '#b41f25',
+//                    fillColor: '#b41f25',
+//                    weight: 1,
+//                    stroke: 1,
+//                    fillOpacity: .8,
+//                    radius: 81
+//                    }
+//            }
+//        }).addTo(map);
+//    
+//
+//        
+//        map.on('click', function (e) {
+//            circleLayer.eachLayer(function (layer) {
+//                var distance = e.latlng.distanceTo(layer.getLatLng()) / 1000;
+//
+//                if (distance > 81) {
+//                    layer.setStyle({
+//                        stroke: false,
+//                        fill: false
+//                    });
+//                } else {
+//                    layer.setStyle({
+//                        stroke: true,
+//                        fill: true
+//                    });
+//                }
+//            });
+//        });
+        
+        /*var commonStyles = {
+            weight: 1,
+            stroke: 1,
+            fillOpacity: .8
+        };
+        var sourcesLayers = {
+        "<b style='color:#1f78b4'>Hydro</b>": hydroLayer,
+        "<b style='color:green''>Wind</b>": windLayer,
+        "<b style='color:#001323; text-shadow: 0px 0px 1px #333;'>Coal</b>": coalLayer
+    }
+
+        L.control.layers(null, sourcesLayers, {
+            collapsed: false
+        }).addTo(map);*/
+    </script>
+
+</body>
+
+</html>
