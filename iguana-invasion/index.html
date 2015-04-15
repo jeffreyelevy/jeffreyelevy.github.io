@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset=utf-8 />
+    <title>Space Iguana Invasion!</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+
+    <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+    <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: whitesmoke;
+            font-family: Lato, sans-serif;
+            color: #0D0000;
+        }
+        header {
+            padding: 6px 10%;
+        }
+        h1 {
+            display: inline-block;
+            margin-right: 20px;
+            color: #001323;
+        }
+        h2 {
+            display: inline-block;
+            color: #001323;
+        }
+        #map {
+            width: 80%;
+            height: 540px;
+            margin: 10px auto;
+        }
+        footer {
+            padding: 6px 10%;
+            width: 80%;
+        }
+        p {
+            font-size: 1em;
+            color: #001323;
+        }
+        /* Additional style rules go here! */
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Crikey!</h1>
+        <h2>The festival is <b><i>*where*?</i></b></h2>
+    </header>
+
+    <div id='map'></div>
+
+    <footer>
+        
+     
+        <p>Map authored by Jeff Levy</p>
+        <p>The code for this map can be found on <a href="https://github.com/jeffreyelevy/geo409/tree/master/map-01">Github</a>.</p>
+        <p>Giant space iguanas have invaded Melbourne (Australia)! The have established a dozen base camps around the city and are terrorizing its citizens. Don't ask how these cold-blooded bastards survived the frozen void of space; it doesn't matter. Until the temperature starts to dip this July and slow them down, we'll have to wait them out. Use the map above to determine safe passages around town. It has been recommended to refrain from entering a 2.2km buffer around their camps, which shouldn't be a problem as they smell like a wallaby's arsehole. A special warning to those planning to travel to the other side of the planet to attend the Runaway Country Music Festival: Be sure to use the Melbourne Airport as both the Essendon and RAAF Williams Airports are within striking distance of the typically herbivorous dingo-munchers.
+        </p>
+    </footer>
+
+    <script>
+ // Step 1 and 2 here
+        
+    var map = L.map('map', {
+        center: [-37.826442, 145.275],
+        zoom: 10,
+        minZoom: 1,
+        maxZoom: 12
+    });    
+        
+    var MapQuestOpen_OSM =  L.tileLayer('http://otile{s}.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpeg', {
+	   attribution: 'Tiles Courtesy of <a href="http://www.mapquest.com/">MapQuest</a> &mdash; Map data &copy; <a      href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+	   subdomains: '1234'
+        });
+        
+    map.addLayer(MapQuestOpen_OSM);
+        
+        var iguanaZones = [
+            {
+                name: 'lz1',
+                coordinates: [-37.854506, 144.797431],
+                properties: {
+                    size: 1850
+                }
+            },
+            {
+                name: 'lz2',
+                coordinates: [-37.749253, 144.855108],
+                properties: {
+                    size: 2500
+                }
+            },
+            {
+                name: 'lz3',
+                coordinates: [-37.770967, 144.943686],
+                properties: {
+                    size: 2150
+                }
+            },
+            {
+                name: 'lz4',
+                coordinates: [-37.720472, 145.002051],
+                properties: {
+                    size: 2000
+                }
+            },
+            {
+                name: 'lz5',
+                coordinates: [-37.774767, 145.033635],
+                properties: {
+                    size: 2500
+                }
+            },
+            {
+                name: 'lz6',
+                coordinates: [-37.827394, 145.040503],
+                properties: {
+                    size: 2350
+                }
+            },
+            {
+                name: 'lz7',
+                coordinates: [-37.767711, 145.116720],
+                properties: {
+                    size: 1100
+                }
+            },
+            {
+                name: 'lz8',
+                coordinates: [-37.829563, 145.129767],
+                properties: {
+                    size: 1450
+                }
+            },
+            {
+                name: 'lz9',
+                coordinates: [-37.779108, 145.749365],
+                properties: {
+                    size: 950
+                }
+            },
+            {
+                name: 'lz10',
+                coordinates: [-37.868059, 145.0714022],
+                properties: {
+                    size: 2000
+                }
+            },
+            {
+                name: 'lz11',
+                coordinates: [-37.932565, 145.080328],
+                properties: {
+                    size: 1700
+                }
+            },
+            {
+                name: 'lz12',
+                coordinates: [-37.873479, 145.1963717],
+                properties: {
+                    size: 1200
+                }
+            }
+        ]; // end iguanaShips data
+        
+        
+//      steps 3 here
+        
+    var safeDistOptions = {
+        color: 'yellow',
+        fillColor: 'yellow'
+    };
+    var unsafeDistOptions = {
+       color: 'red',
+       fillColor: 'red'
+    };
+//      steps 4-6  here
+        
+    var iguanaGroup = L.layerGroup();
+        
+    for (var i in iguanaZones){
+//        console.log(iguanaZones[i].name, iguanaZones[i].coordinates, iguanaZones[i].properties.size);
+        var iguanaCamp = L.circle(iguanaZones[i].coordinates, iguanaZones[i].properties.size, safeDistOptions, iguanaZones[i].name);
+        
+        iguanaCamp.addTo(iguanaGroup);
+        }
+        
+        iguanaGroup.addTo(map);
+        
+        var marker;  // keep this code
+        map.on('click', function(e) {  // keep this code
+// uncomment this code after step seven is finished
+            var clicklatlong = (e.latlng);
+            if(map.hasLayer(marker) && marker.keep==false) {
+//                console.log ('marker is present.');
+                map.removeLayer(marker);
+            }
+
+//              step seven here
+            marker = L.marker(clicklatlong, {
+            draggable:true
+            });
+            
+            marker.addTo(map);
+//            console.log(marker);
+                        
+//              step eight here
+           testDistance(clicklatlong);
+        
+            marker.on ('drag', function(e){
+            testDistance(marker.getLatLng());
+            });
+        });  // keep this code
+        
+        
+//        console.log(coords);
+        
+        function testDistance(clicklatlong2) {
+            var safe = true;
+            iguanaGroup.eachLayer(function(layer) {
+//              step 9 here
+                var distance = clicklatlong2.distanceTo(layer.getLatLng())-layer.getRadius();
+//                console.log('distance to camp: '+ distance);
+//              step 10 here
+                
+                if (distance < 2200){
+                    layer.setStyle(unsafeDistOptions);
+//                    console.log("You're too close!");
+                    safe = false;
+                }
+                else {
+                    layer.setStyle(safeDistOptions);
+                }
+            });
+            marker.keep = safe;
+        }
+        
+// end map1 code
+        
+    </script>
+    
+</body>
+
+</html>
