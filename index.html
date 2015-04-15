@@ -2,156 +2,20 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Jeff Levy Geo404/709 Portfolio</title>
+<title>Geo404/709 Portfolio Jeff Levy</title>
 
 <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.min.css" />
-<link href='http://fonts.googleapis.com/css?family=Imprima' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=Dosis' rel='stylesheet' type='text/css'>
-    
 <style>
     
 /* CSS style rules go here! */   
-    body {  
-        background: #f5f5f5;   
-        font-family: Imprima, sans-serif;
-    }
-    
-     header { 
-            width: 100%;
-            min-width: 800px;
-            margin: 0 auto;
-            background: steelblue;
-            padding: 15px 0 20px;
-        }
-    h1 { 
-        font-family: Dosis, sans-serif;
-        color: #375671; 
-        width: 80%;
-        margin: 0 auto;
-        color: whitesmoke;
-    }
-    h2 { 
-        font-family: Dosis, sans-serif;
-        color: #375671;
-        width: 80%;
-        margin: 0 auto;
-        color: whitesmoke;
-    }    
 
-    h3 {
-        font-family: Dosis, sans-serif;
-        color: #003d71
-    }
-    p { 
-        font-size: .9em; 
-        color: #375671; 
-    }
-    ul {
-        list-style-type: none; 
-        font-size: .9em; 
-        color: #375671; 
-        line-height: 1.6em;
-    }
-    a, a:visited {   
-        color: #003d71;
-    }    
-    
-    .project {
-        width: 80%;
-        min-width: 800px;
-        height: 100%;
-        margin: 35px auto;
-    }
-    .project:after{
-        content: "";
-        display: table;
-        clear: both; 
-    }
-    .project-image {
-        width: 388px;
-        height: 240px;
-        background: white;
-        float: left;
-        margin-right: 20px;
-        border: 2px solid #dddddd;
-    }    
-    
 </style>
 </head>
 
 <body>
-    <header>
-        <h1>Geo409 &ndash; 709: Advanced GIS</h1>
-        <h2>Web Mapping at the University of Kentucky</h2>
-    </header>
-<!--    <p>Hello World! I'm going to be a portfolio page.</p>-->
-    
-    
-    
-    <section class="project">
-        <a target="_blank" href="ky-unemployment/"><image src="images/kyunemployment.png" alt="KY Unemployment Rates by County: 2000-2013"  class="project-image"/></a>
-        <h3><a target="_blank" href="ky-unemployment/">KY Unemployment Rates: 2001 &ndash; 2013</a></h3>
-        <p>This choropleth map shows unemployment rates in the Commonwealth of Kentucky by county for years ranging between 2001 and 2013.</p>
-        <p>The data is loaded dynamically with an AJAX request, and classifications are calculated at run-time within the client. The map uses an HTML5 range slider used to sequence through the years and update the map.</p>
-        <ul>
-            <li>See the map: <a href="ky-unemployment/">KY Unemployment Rates: 2001 &ndash; 2013</a></li>
-            <li>Data Source: <a href="http://www.bls.gov/data/">Bureau of Labor Statistics</a></li>
-            <li>See the <a href="https://github.com/jeffreyelevy/geo409/tree/master/map-04">code for this map hosted on GitHub</a></li>
-        </ul>
-    </section>
-    
-    
-    
-    <section class="project">
-        <a target="_blank" href="us-energy/"><image src="images/us_energyproduction.png" alt="US Energy Production by Source" class="project-image"></a>
-        <h3><a target="_blank" href="us-energy/">US Energy Production: Nuclear, Coal, and Hydro</a></h3>
-        <p>This proportional symbols map displays nuclear, coal, and hydro power plants within 500km of the user's click. Double-clicking the map will change the display to those plants within 200km of the click location. </p>
-        <p>The data is loaded from an external javascipt file, and symbolized with internally calculated radii to represent each plant's  proportional output in MW by source.</p>
-        <ul>
-            <li>See the map: <a href="us-energy/">US Energy Production: Nuclear, Coal, and Hydro</a></li>
-            <li>Data Source: <a href="http://www.eia.gov/electricity/data/eia923/">U.S. Energy Information Administration</a></li>
-            <li>See the <a href="https://github.com/jeffreyelevy/geo409/tree/master/map-03">code for this map hosted on GitHub</a></li>
-        </ul>
-    </section>
 
-        
-        
-    <section class="project">
-        <a target="_blank" href="renewable-rockies/"><image src="images/nrockies_energy.png" alt="Renewable Energy Production in the Northern Rockies" class="project-image"></a>
-        <h3><a target="_blank" href="renewable-rockies/"></a>Renewable Rockies: Wind and Hydro Power</h3>
-        <p>This proportional symbols map shows small ( <500MW) renewable power plants within 400km of Cooke City, MT. Blue circles denote Hydroelectric plants, while green circles represent Wind power. Circles are sized based on relative output capacity.</p>
-        <p>The data is loaded from an external javascipt file, and symbolized with internally calculated radii to represent each plant's  proportional output in MW by source.</p>
-        <ul>
-            <li>See the map: <a href="renewable-rockies/">Small, Renewable Power Plants of the Northern Rockies</a></li>
-            <li>Data Source: <a href="http://www.eia.gov/electricity/data/eia923/">U.S. Energy Information Administration</a></li>
-            <li>See the <a href="https://github.com/jeffreyelevy/geo409/tree/master/map-02">code for this map hosted on GitHub</a></li>
-        </ul>
-    </section>            
-       
-        
-        
-    <section class="project">
-        <a target="_blank" href="iguana-invasion/"><image src="images/melbourne_iguanainvasion.png" alt="Melbourne Iguana Invasion!"class="project-image"></a>
-        <h3><a target="_blank" href="iguana-invasion/"></a>Aussies Under Attack: Iguana Invasion!</h3>
-        <p>This Leaflet circles map displays space iguana containment zones of varying radii, and allows the user to click around the map to determine safe paths that are beyong the iguanas' reach.</p>
-        <p>The data drawing the campsites is hardcoded within the javascipt of the index.html.</p>
-        <ul>
-            <li>See the map: <a href="iguana-invasion/">Aussies under attack: Space Iguana Invasion!</a></li>
-            <li>See the <a href="https://github.com/jeffreyelevy/geo409/tree/master/map-01">code for this map hosted on GitHub</a></li>
-        </ul>
-    </section>            
-       
-        
-        
-    <section class="project">
-        <a target="_blank" href="larp/"><image src="images/larp.png" alt="Live Action Role Play"class="project-image"></a>
-        <h3><a target="_blank" href="larp/"></a>IN PROGRESS: Live Action Role Play Communities</h3>
-        <p>Live Action Role Play (Larp) is a game in which real people play fantatstical people in a world of their own making. From knights and swords, to aliens and laser beams, larp allows players to explore their imagination unlike any other form of entertainment. These games are organized by local groups of individuals wishing to play their own game, and has resulted in some division of players amongst larps that are too close to others. This map was made to allow you an easy view of the different larps located around your location, in about an hour drive or 50 miles radius.</p>
-        <p>The list of larps available was gained through Larping.org, and shows only those registered on the site. While there are many larps that do not appear on this map, it does hold almost 400 different larps from around the world. If you cannot find one near you, go out and make one yourself.</p>
-        <ul>
-            <li>See the map: <a href="larp/">Live Action Role Play Communities (DRAFT)</a></li>
-            <li>See the <a href="https://github.com/jeffreyelevy/geo409/tree/master/finalproject">code for this map hosted on GitHub</a></li>            
+    <p>Hello World! I'm going to be a portfolio page.</p>
+    
 </body>
 </html>
